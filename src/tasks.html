@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список задач - Мое Приложение</title>
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+<header>
+    <div class="burger-menu" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <nav>
+        <ul id="navMenu">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="projects.html">Проекты</a></li>
+            <li><a href="tasks.html" class="active">Список задач</a></li>
+            <li><a href="about.html">О приложении</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="content">
+    <h1>Список задач</h1>
+    <button onclick="openAddTaskDialog()">Добавить задачу</button>
+    <div class="task-list" id="taskList"></div>
+</div>
+
+<!-- Модальное окно -->
+<dialog id="addTaskDialog">
+    <div class="dialog-content">
+        <h2>Добавить задачу</h2>
+        <textarea id="taskInput" placeholder="Введите задачу" required></textarea>
+        <button onclick="addTask()">Добавить</button>
+        <button onclick="closeAddTaskDialog()">Закрыть</button>
+    </div>
+</dialog>
+
+<script>
+    // Функция для открытия модального окна
+    function openAddTaskDialog() {
+        var addTaskDialog = document.getElementById("addTaskDialog");
+        addTaskDialog.showModal();
+    }
+
+    // Функция для закрытия модального окна
+    function closeAddTaskDialog() {
+        var addTaskDialog = document.getElementById("addTaskDialog");
+        addTaskDialog.close();
+    }
+    // Закрытие окна при клике вне его области
+    var addTaskDialog = document.getElementById("addTaskDialog");
+    addTaskDialog.addEventListener('click', function (event) {
+        var rect = addTaskDialog.getBoundingClientRect();
+        if (!(event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom)) {
+            closeAddTaskDialog();
+        }
+    });
+
+    // Функция для добавления задачи
+    function addTask() {
+        var taskInput = document.getElementById("taskInput").value;
+        if (taskInput === "") return;
+
+        // Получаем текущий список задач из localStorage
+        var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks.push(taskInput);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+
+        // Обновляем список задач на странице
+        renderTasks();
+        
+        // Очистить поле и закрыть модальное окно
+        document.getElementById("taskInput").value = "";
+        closeAddTaskDialog();
+    }
+
+    // Функция для удаления задачи
+    function deleteTask(index) {
+        var tasks = JSON.parse(localStorage.getItem('tasks'));
+        tasks.splice(index, 1);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        renderTasks();
+    }
+
+    // Функция для отображения задач на странице
+    function renderTasks() {
+        var taskList = document.getElementById("taskList");
+        taskList.innerHTML = ""; // очищаем список перед отображением
+
+        var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks.forEach(function(task, index) {
+            var taskCard = document.createElement("div");
+            taskCard.className = "task-card";
+            taskCard.innerHTML = `
+                <h2>Задача ${index + 1}</h2>
+                <button class="delete-button" onclick="deleteTask(${index})">Удалить</button>
+                <p>${task.replace(/\n/g, '<br>')}</p> <!-- Заменяем переносы строк на <br> -->
+            `;
+            taskList.appendChild(taskCard);
+        });
+    }
+
+    // Функция для переключения бургер-меню
+    function toggleMenu() {
+        var navMenu = document.getElementById("navMenu");
+        navMenu.classList.toggle("show");
+        var burgerMenu = document.querySelector(".burger-menu");
+        burgerMenu.classList.toggle("active");
+    }
+
+    // Отображение задач при загрузке страницы
+    window.onload = function() {
+        renderTasks();
+    };
+</script>
+<script src="bundle.js"></script>
+
+</body>
+</html>

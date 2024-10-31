@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О приложении - Мое Приложение</title>
+</head>
+<body>
+<header>
+    <div class="burger-menu" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <nav>
+        <ul id="navMenu">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="projects.html">Проекты</a></li>
+            <li><a href="tasks.html">Список задач</a></li>
+            <li><a href="about.html" class="active">О приложении</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="content">
+    <h1>О нашем приложении</h1>
+    <p>
+        Добро пожаловать в наше приложение! Это инструмент, созданный для упрощения управления задачами.
+        Вы можете добавлять, удалять и отслеживать ваши задачи в удобном интерфейсе.
+    </p>
+    <h2>
+        Основные функции нашего приложения:
+    </h2>
+    <ul style="list-style-type: disc; text-align: left; margin: 0 auto; max-width: 600px;">
+        <li>Добавление и удаление задач.</li>
+        <li>Поддержка многострочных задач.</li>
+        <li>Сохранение задач в локальном хранилище.</li>
+        <li>Адаптивный дизайн для различных устройств.</li>
+    </ul>
+    <img src="./assets/Add-tasks-bro.svg" alt="Скриншот приложения">
+</div>
+
+<script>
+    // Функция для переключения бургер-меню
+    function toggleMenu() {
+        var navMenu = document.getElementById("navMenu");
+        navMenu.classList.toggle("show");
+        var burgerMenu = document.querySelector(".burger-menu");
+        burgerMenu.classList.toggle("active");
+    }
+</script>
+<script src="bundle.js"></script>
+</body>
+</html>

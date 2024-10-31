@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная - Мое Приложение</title>
+</head>
+<body>
+
+<header>
+    <div class="burger-menu" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <nav>
+        <ul id="navMenu">
+            <li><a href="index.html" class="active">Главная</a></li>
+            <li><a href="projects.html">Проекты</a></li>
+            <li><a href="tasks.html">Список задач</a></li>
+            <li><a href="about.html">О приложении</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="content">
+    <h1>TASK MANAGER</h1>
+    <p>Добро пожаловать в наше приложение! Здесь вы найдете проекты, задачи и информацию о приложении. Наслаждайтесь использованием!</p>
+    <img src="./assets/Task-bro.svg" alt="Основное изображение">
+</div>
+
+<script>
+    // Функция для переключения бургер-меню
+    function toggleMenu() {
+        var navMenu = document.getElementById("navMenu");
+        navMenu.classList.toggle("show");
+        var burgerMenu = document.querySelector(".burger-menu");
+        burgerMenu.classList.toggle("active");
+    }
+</script>
+<script src="bundle.js"></script>
+
+</body>
+</html>
