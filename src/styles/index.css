@@ -1,0 +1,14 @@
+        body {
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .content img {
+            max-width: 80%;
+            height: auto;
+            margin-top: 20px;
+        }
+        @media (max-width: 768px) {
+            nav ul.show {
+                display: flex;
+            }
+        }
